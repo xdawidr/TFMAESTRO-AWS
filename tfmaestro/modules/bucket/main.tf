@@ -5,12 +5,6 @@ resource "aws_s3_bucket" "static_site" {
 
 resource "aws_s3_bucket_website_configuration" "static_site_configuration" {
   bucket = aws_s3_bucket.static_site.id
-  index_document {
-    suffix = var.main_page_suffix
-  }
-  error_document {
-    key = var.not_found_page
-  }
 }
 
 resource "aws_s3_bucket_versioning" "static_site_versioning" {
@@ -21,18 +15,11 @@ resource "aws_s3_bucket_versioning" "static_site_versioning" {
   }
 }
 
-resource "aws_s3_object" "index_html" {
-  bucket       = aws_s3_bucket.static_site.bucket
-  key          = "index.html"
-  source       = "${path.module}/files/index.html"
-  content_type = "text/html"
-}
-
-resource "aws_s3_object" "not_found_page_404_html" {
-  bucket       = aws_s3_bucket.static_site.bucket
-  key          = "404.html"
-  source       = "${path.module}/files/404.html"
-  content_type = "text/html"
+resource "aws_s3_object" "ferdynand_jpeg" {
+  bucket       = aws_s3_bucket.static_with_image.bucket_name
+  key          = "ferdynand.jpeg"
+  source       = "${path.module}/files/ferdynand.jpeg"
+  content_type = "image/jpeg"
 }
 
 resource "aws_s3_bucket_public_access_block" "public_access_block" {
