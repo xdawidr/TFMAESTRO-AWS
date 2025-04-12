@@ -16,7 +16,7 @@ resource "aws_s3_bucket_versioning" "static_site_versioning" {
 }
 
 resource "aws_s3_object" "ferdynand_jpeg" {
-  bucket       = module.bucket_with_image.bucket_name
+  bucket       = aws_s3_bucket.static_site.bucket
   key          = "ferdynand.jpeg"
   source       = "${path.module}/files/ferdynand.jpeg"
   content_type = "image/jpeg"
